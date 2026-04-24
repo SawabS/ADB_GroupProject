@@ -16,6 +16,7 @@ CREATE INDEX ministry_id IF NOT EXISTS FOR (n:Ministry) ON (n.ministry_id);
 CREATE INDEX property_id IF NOT EXISTS FOR (n:Property) ON (n.property_id);
 CREATE INDEX enroll_id IF NOT EXISTS FOR (n:Enrollment) ON (n.enroll_id);
 CREATE INDEX reg_id IF NOT EXISTS FOR (n:EventRegistration) ON (n.registration_id);
+CREATE INDEX city_name IF NOT EXISTS FOR (n:City) ON (n.name);
 ```
 
 ***
@@ -183,6 +184,39 @@ SET n.event_id = row.event_id,
     n.ticket_type = row.ticket_type,
     n.paid_usd = toFloat(row.paid_usd),
     n.registration_date = row.registration_date;
+
+```
+```cypher
+// City nodes — collected from all sources
+LOAD CSV WITH HEADERS FROM 'file:///companies.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///students.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///universities.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///hospitals.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///patients_1000.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///events.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///ministries.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///government_projects.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///properties.csv' AS row
+MERGE (:City {name: row.city});
+
+LOAD CSV WITH HEADERS FROM 'file:///event_registrations_1000.csv' AS row
+MERGE (:City {name: row.city});
 ```
 
 ### Verify Everything Loaded
@@ -191,7 +225,7 @@ SET n.event_id = row.event_id,
 MATCH (n) RETURN labels(n) AS Label, count(n) AS Count ORDER BY Count DESC;
 ```
 
-You should see **13 rows**, each with **1,000 nodes**. Once confirmed, you're ready for Phase 3 (relationships). Want me to give you that script too?
+You should see **14 labels** — 13 node types with ~1,000 nodes each, plus **City** with 5 nodes (Erbil, Sulaymaniyah, Duhok, Zakho, Halabja).
 
 ***
 
@@ -202,7 +236,7 @@ You should see **13 rows**, each with **1,000 nodes**. Once confirmed, you're re
 LOAD CSV WITH HEADERS FROM 'file:///students.csv' AS row
 CALL (row) {
   MATCH (s:Student {student_id: row.student_id})
-  MATCH (u:University {university_id: row.university})
+  MATCH (u:University {name: row.university})
   MERGE (s)-[:STUDIES_AT]->(u)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
@@ -232,7 +266,7 @@ CALL (row) {
 LOAD CSV WITH HEADERS FROM 'file:///departments.csv' AS row
 CALL (row) {
   MATCH (d:Department {dept_id: row.dept_id})
-  MATCH (u:University {university_id: row.university})
+  MATCH (u:University {name: row.university})
   MERGE (d)-[:PART_OF]->(u)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
@@ -242,7 +276,7 @@ CALL (row) {
 LOAD CSV WITH HEADERS FROM 'file:///patients_1000.csv' AS row
 CALL (row) {
   MATCH (p:Patient {patient_id: row.patient_id})
-  MATCH (h:Hospital {hospital_id: row.hospital})
+  MATCH (h:Hospital {name: row.hospital})
   MERGE (p)-[:ADMITTED_TO {diagnosis: row.diagnosis, status: row.status, doctor: row.doctor}]->(h)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
@@ -252,8 +286,98 @@ CALL (row) {
 LOAD CSV WITH HEADERS FROM 'file:///government_projects.csv' AS row
 CALL (row) {
   MATCH (p:GovernmentProject {project_id: row.project_id})
-  MATCH (m:Ministry {ministry_id: row.ministry})
+  MATCH (m:Ministry {ministry_name: row.ministry})
   MERGE (p)-[:MANAGED_BY]->(m)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// GovernmentProject LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///government_projects.csv' AS row
+CALL (row) {
+  MATCH (p:GovernmentProject {project_id: row.project_id})
+  MATCH (c:City {name: row.city})
+  MERGE (p)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Hospital LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///hospitals.csv' AS row
+CALL (row) {
+  MATCH (h:Hospital {hospital_id: row.hospital_id})
+  MATCH (c:City {name: row.city})
+  MERGE (h)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// University LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///universities.csv' AS row
+CALL (row) {
+  MATCH (u:University {university_id: row.university_id})
+  MATCH (c:City {name: row.city})
+  MERGE (u)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Ministry LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///ministries.csv' AS row
+CALL (row) {
+  MATCH (m:Ministry {ministry_id: row.ministry_id})
+  MATCH (c:City {name: row.city})
+  MERGE (m)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Company LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///companies.csv' AS row
+CALL (row) {
+  MATCH (co:Company {company_id: row.company_id})
+  MATCH (c:City {name: row.city})
+  MERGE (co)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Event LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///events.csv' AS row
+CALL (row) {
+  MATCH (e:Event {event_id: row.event_id})
+  MATCH (c:City {name: row.city})
+  MERGE (e)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Property LOCATED_IN City
+LOAD CSV WITH HEADERS FROM 'file:///properties.csv' AS row
+CALL (row) {
+  MATCH (pr:Property {property_id: row.property_id})
+  MATCH (c:City {name: row.city})
+  MERGE (pr)-[:LOCATED_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Student LIVES_IN City
+LOAD CSV WITH HEADERS FROM 'file:///students.csv' AS row
+CALL (row) {
+  MATCH (s:Student {student_id: row.student_id})
+  MATCH (c:City {name: row.city})
+  MERGE (s)-[:LIVES_IN]->(c)
+} IN TRANSACTIONS OF 500 ROWS;
+```
+
+```cypher
+// Patient LIVES_IN City
+LOAD CSV WITH HEADERS FROM 'file:///patients_1000.csv' AS row
+CALL (row) {
+  MATCH (p:Patient {patient_id: row.patient_id})
+  MATCH (c:City {name: row.city})
+  MERGE (p)-[:LIVES_IN]->(c)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
@@ -276,6 +400,18 @@ MATCH ()-[r]->()
 RETURN type(r) AS Relationship, count(r) AS Count
 ORDER BY Count DESC;
 ```
+
+## Verify City Hub
+
+After running all blocks, confirm City is acting as a hub:
+
+```cypher
+MATCH (n)-[:LOCATED_IN]->(c:City)
+RETURN c.name AS City, labels(n)[0] AS NodeType, count(n) AS Count
+ORDER BY City, NodeType;
+```
+
+This single query shows every city and how many of each node type connect to it — which is the real power of making City a hub node .
 
 ***
 
@@ -312,3 +448,11 @@ Switch to the **"Graph"** view tab in the Query results panel to see the visual 
 > // Compare with:
 > MATCH (u:University) RETURN DISTINCT u.name LIMIT 10;
 > ```
+
+| Step   | What                                          | Status |
+| ------ | --------------------------------------------- | ------ |
+| Step 1 | 14 indexes (13 node types + City)             | ✅      |
+| Step 2 | 13 node-loading blocks + 1 City block         | ✅      |
+| Step 3 | 16 relationship blocks, each in its own fence | ✅      |
+| Step 4 | Relationship count verify + City hub verify   | ✅      |
+| Step 5 | 3 visual sanity checks                        | ✅      |
