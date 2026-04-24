@@ -10,7 +10,6 @@ This project is a graduate-level group assignment that demonstrates the design, 
 
 The project covers the full pipeline:
 - 📦 Dataset design and generation (13 interrelated CSV tables, 1,000 records each)
-- 🧱 Node and relationship creation in Neo4j using Cypher
 - 🔍 Complex querying, data fetching, and analytical insights
 - 📊 Graph visualization and relationship traversal
 
@@ -58,9 +57,7 @@ ADB_GroupProject/
 │   ├── events.csv
 │   └── event_registrations_1000.csv
 │
-├── making_nodes.md           # Phase 2: Cypher scripts to create Neo4j nodes
-├── making_relationships.md   # Phase 3: Cypher scripts to create relationships
-├── fetching_data.md          # Phase 4: Cypher queries for data retrieval
+├── fetching_data.md          # Cypher queries for data retrieval & analysis
 ├── summary.md                # Dataset summary and table overview
 ├── assignment_instructions.txt  # Original assignment brief
 └── README.md                 # This file
@@ -107,13 +104,9 @@ Each table contains **1,000 records** with meaningful cross-domain references, e
    cd ADB_GroupProject
    ```
 
-2. **Load the CSV files** into Neo4j's import directory or use a remote URL.
+2. **Load the CSV files** into Neo4j's import directory or reference them via a remote URL.
 
-3. **Create Nodes** — Run the Cypher scripts in [`making_nodes.md`](./making_nodes.md)
-
-4. **Create Relationships** — Run the scripts in [`making_relationships.md`](./making_relationships.md)
-
-5. **Query the Data** — Explore the queries in [`fetching_data.md`](./fetching_data.md)
+3. **Query the Data** — Explore the Cypher queries in [`fetching_data.md`](./fetching_data.md)
 
 ---
 
