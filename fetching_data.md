@@ -232,12 +232,12 @@ You should see **14 labels** — 13 node types with ~1,000 nodes each, plus **Ci
 ## Step 3 — Create All Relationships
 
 ```cypher
-// Student STUDIES_IN University
+// Student STUDIES_AT University
 LOAD CSV WITH HEADERS FROM 'file:///students.csv' AS row
 CALL (row) {
   MATCH (s:Student {student_id: row.student_id})
   MATCH (u:University {university_id: row.university})
-  MERGE (s)-[:ENROLLED_IN]->(u)
+  MERGE (s)-[:STUDIES_AT]->(u)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
