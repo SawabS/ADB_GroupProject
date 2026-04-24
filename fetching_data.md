@@ -193,6 +193,8 @@ MATCH (n) RETURN labels(n) AS Label, count(n) AS Count ORDER BY Count DESC;
 
 You should see **13 rows**, each with **1,000 nodes**. Once confirmed, you're ready for Phase 3 (relationships). Want me to give you that script too?
 
+***
+
 ## Step 3 — Create All Relationships
 
 ```cypher
