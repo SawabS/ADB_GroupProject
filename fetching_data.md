@@ -1,3 +1,21 @@
+---
+
+
+## ⚠️ DATA INTEGRITY WARNING: Department Identifiers
+
+**Critical issue:** The `courses.csv` file references department IDs (e.g., `D280`, `D636`, `D847`, up to `D987`) that do not exist in `departments.csv` (which only goes up to about `D093`).
+
+- **Result:** Most `Course BELONGS_TO Department` relationships will not be created because the referenced department nodes do not exist.
+- There is also a zero-padding inconsistency: some IDs are `D01`, `D02`, ... while others are `D013`, `D014`, etc. This can cause further silent mismatches.
+
+**To fix:**
+1. Expand `departments.csv` to include all department IDs referenced in `courses.csv`, OR
+2. Regenerate `courses.csv` so its `department` column only references IDs that exist in `departments.csv` (D01–D093 range), AND
+3. Standardize zero-padding in both files (e.g., always use `D001`, `D013`, etc. or always use `D1`, `D13`, etc.).
+
+**Note:** The university short codes (e.g., `UKH`, `SPU`, etc.) are valid and do exist as `university_id` values in `universities.csv`, so the `Student STUDIES_AT University` and `Department PART_OF University` relationships will work as written.
+
+---
 > **Disclaimer**: do not import the '.csv' files from the import section of Neo4j Desktop. You have to move/copy them to the folder where your instance sits locally on your machine. You can find the path of that folder when you go to your active instance under `Local instances` and tap `open folder` then a window will pop up showing that location, for me it is: `C:\Users\sawab\.Neo4jDesktop2\Data\dbmss\dbms-e506bb18-442a-4405-944a-ff0d73d4b83f`. There is a **import** folder under that path which the files should be sitting there, and then you can proceed with both step 2 and 3.
 
 ## Step 1 — Create Indexes First
