@@ -1,8 +1,7 @@
 # ADB Group Project — Neo4j on KRG Open Data
 
 A graduate-level project implementing a **Neo4j graph database** over a synthetic multi-domain dataset representing the **Kurdistan Region of Iraq (KRG)**.
-
----
+> **Team:** Sawab Hussein · Mohammed Salah · Asmaa Salih
 
 ## 🎓 Course Info
 
@@ -12,8 +11,6 @@ A graduate-level project implementing a **Neo4j graph database** over a syntheti
 | **Institution** | [American University of Kurdistan — Duhok](https://www.auk.edu.krd/) |
 | **Course** | Advanced Database Systems — 101 |
 | **Instructor** | [Dr. Shamal AL-Dohuki](https://shamal-dohuki.github.io/) |
-
-> **Team:** Sawab Hussein · Mohammed Salah · Asmaa Salih
 
 ---
 
