@@ -185,9 +185,7 @@ SET n.event_id = row.event_id,
     n.registration_date = row.registration_date;
 ```
 
-***
-
-## — Verify Everything Loaded
+### Verify Everything Loaded
 
 ```cypher
 MATCH (n) RETURN labels(n) AS Label, count(n) AS Count ORDER BY Count DESC;
