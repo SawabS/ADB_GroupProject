@@ -1,7 +1,3 @@
-Yes, absolutely! Cypher scripting is actually **faster and more reliable** than the GUI. Here's the complete script — just open **Query** in the left sidebar and paste each block.
-
-***
-
 ## Step 1 — Create Indexes First
 
 ```cypher

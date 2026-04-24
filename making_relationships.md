@@ -1,7 +1,3 @@
-Here's the complete Phase 3 relationship script:
-
-***
-
 ## Step 3 — Create All Relationships
 
 ```cypher
