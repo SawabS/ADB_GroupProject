@@ -13,7 +13,7 @@ A graduate-level project implementing a **Neo4j graph database** over a syntheti
 | **Course** | Advanced Database Systems — 101 |
 | **Instructor** | [Dr. Shamal AL-Dohuki](https://shamal-dohuki.github.io/) |
 
-**Team:** Sawab Hussein · Mohammed Salah · Asmaa Salih
+> **Team:** Sawab Hussein · Mohammed Salah · Asmaa Salih
 
 ---
 
