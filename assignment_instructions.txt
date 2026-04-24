@@ -1,0 +1,46 @@
+MSc in Artificial Intelligence
+Advanced Database Systems Group Project
+NoSQL & Vector Database Implementation using KRG Dataset
+
+Group Work
+Groups of 3 students. All members must contribute equally.
+
+Objective
+Select ONE database (MongoDB, Cassandra, Redis, Neo4j, or ChromaDB), load the dataset, design a schema, and demonstrate the usefulness of the database.
+
+Dataset
+Multiple CSV files and vector documents covering students, universities, courses, hospitals, businesses, properties, government, events, and text-based reports for vector search are uploaded to the Resources folder on Blackboard.
+    • csv_tables_1000.zip for (MongoDB, Cassandra, Redis, Neo4j)
+    • chromadb_krg_synthetic.zip (ChromaDB)
+
+Project Requirements
+    • Setup and configure your database
+    • Import dataset
+    • Design schema (collections/tables/keys/graph/embeddings)
+    • Provide brief justification
+
+Tasks (10 Total)
+    • Basic (3): Load data, filtering queries, sorting/limiting
+    • Intermediate (4): CRUD, aggregation, multi-condition, cross-domain
+    • Advanced (3): DB-specific feature (or semantic search for ChromaDB), validation, real-world query
+
+Deliverables
+    • Report (3–5 pages)
+    • Queries / Code
+    • Presentation (10–15 minutes)
+
+Evaluation
+Implementation, schema quality, query complexity, database features, presentation
+
+IMPORTANT NOTES:
+    • Each group MUST choose a different database. No two groups are allowed to select the same database.
+    • One group may choose ChromaDB (Vector Database).
+    • Each group MUST send their group members and selected database by Tuesday, 14/04/2026.
+    • Work must be original. Students must be able to explain their work individually.
+
+Tip:
+MongoDB → flexible data
+Cassandra → scalability
+Redis → performance
+Neo4j → relationships
+ChromaDB → semantic search & embeddings
