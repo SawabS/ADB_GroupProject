@@ -200,10 +200,9 @@ You should see **13 rows**, each with **1,000 nodes**. Once confirmed, you're re
 ```cypher
 // Student STUDIES_AT University
 LOAD CSV WITH HEADERS FROM 'file:///students.csv' AS row
-CALL {
-  WITH row
+CALL (row) {
   MATCH (s:Student {student_id: row.student_id})
-  MATCH (u:University {name: row.university})
+  MATCH (u:University {university_id: row.university})
   MERGE (s)-[:STUDIES_AT]->(u)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
@@ -211,23 +210,17 @@ CALL {
 ```cypher
 // Student ENROLLED_IN Course (via enrollments)
 LOAD CSV WITH HEADERS FROM 'file:///enrollments_1000.csv' AS row
-CALL {
-  WITH row
+CALL (row) {
   MATCH (s:Student {student_id: row.student_id})
   MATCH (c:Course {course_id: row.course_id})
-  MERGE (s)-[r:ENROLLED_IN {enroll_id: row.enroll_id}]->(c)
-  SET r.semester = row.semester,
-      r.status = row.status,
-      r.grade = row.grade,
-      r.enrolled_date = row.enrolled_date
+  MERGE (s)-[:ENROLLED_IN {semester: row.semester, grade: row.grade, status: row.status}]->(c)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
 ```cypher
 // Course BELONGS_TO Department
 LOAD CSV WITH HEADERS FROM 'file:///courses.csv' AS row
-CALL {
-  WITH row
+CALL (row) {
   MATCH (c:Course {course_id: row.course_id})
   MATCH (d:Department {dept_id: row.department})
   MERGE (c)-[:BELONGS_TO]->(d)
@@ -237,10 +230,9 @@ CALL {
 ```cypher
 // Department PART_OF University
 LOAD CSV WITH HEADERS FROM 'file:///departments.csv' AS row
-CALL {
-  WITH row
+CALL (row) {
   MATCH (d:Department {dept_id: row.dept_id})
-  MATCH (u:University {name: row.university})
+  MATCH (u:University {university_id: row.university})
   MERGE (d)-[:PART_OF]->(u)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
@@ -248,51 +240,30 @@ CALL {
 ```cypher
 // Patient ADMITTED_TO Hospital
 LOAD CSV WITH HEADERS FROM 'file:///patients_1000.csv' AS row
-CALL {
-  WITH row
+CALL (row) {
   MATCH (p:Patient {patient_id: row.patient_id})
-  MATCH (h:Hospital {name: row.hospital})
-  MERGE (p)-[r:ADMITTED_TO]->(h)
-  SET r.admission_date = row.admission,
-      r.status = row.status,
-      r.doctor = row.doctor
+  MATCH (h:Hospital {hospital_id: row.hospital})
+  MERGE (p)-[:ADMITTED_TO {diagnosis: row.diagnosis, status: row.status, doctor: row.doctor}]->(h)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
 ```cypher
 // GovernmentProject MANAGED_BY Ministry
 LOAD CSV WITH HEADERS FROM 'file:///government_projects.csv' AS row
-CALL {
-  WITH row
-  MATCH (g:GovernmentProject {project_id: row.project_id})
-  MATCH (m:Ministry {ministry_name: row.ministry})
-  MERGE (g)-[r:MANAGED_BY]->(m)
-  SET r.lead_official = row.lead_official
-} IN TRANSACTIONS OF 500 ROWS;
-```
-
-```cypher
-// GovernmentProject LOCATED_IN City (as Ministry city cross-check)
-LOAD CSV WITH HEADERS FROM 'file:///government_projects.csv' AS row
-CALL {
-  WITH row
-  MATCH (g:GovernmentProject {project_id: row.project_id})
-  MATCH (m:Ministry {ministry_name: row.ministry})
-  MERGE (g)-[r:BASED_IN_CITY {city: row.city}]->(m)
+CALL (row) {
+  MATCH (p:GovernmentProject {project_id: row.project_id})
+  MATCH (m:Ministry {ministry_id: row.ministry})
+  MERGE (p)-[:MANAGED_BY]->(m)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
 ```cypher
 // EventRegistration REGISTERED_FOR Event
 LOAD CSV WITH HEADERS FROM 'file:///event_registrations_1000.csv' AS row
-CALL {
-  WITH row
-  MATCH (reg:EventRegistration {registration_id: row.registration_id})
+CALL (row) {
+  MATCH (r:EventRegistration {registration_id: row.registration_id})
   MATCH (e:Event {event_id: row.event_id})
-  MERGE (reg)-[r:REGISTERED_FOR]->(e)
-  SET r.ticket_type = row.ticket_type,
-      r.paid_usd = toFloat(row.paid_usd),
-      r.registration_date = row.registration_date
+  MERGE (r)-[:REGISTERED_FOR]->(e)
 } IN TRANSACTIONS OF 500 ROWS;
 ```
 
