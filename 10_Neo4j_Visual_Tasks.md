@@ -12,16 +12,41 @@ Recommended result view: `Graph`
 
 ## Table of Contents
 
-1. [City as a Central Multi-Sector Hub](#1-city-as-a-central-multi-sector-hub)
-2. [Patient and Hospital Movement](#2-patient-and-hospital-movement)
-3. [Government Project Network](#3-government-project-network)
-4. [Cross-City Student Mobility](#4-cross-city-student-mobility)
-5. [Full Academic Path for Students](#5-full-academic-path-for-students)
-6. [Event Registrations and Their Cities](#6-event-registrations-and-their-cities)
-7. [Cross-City Healthcare Referral Network](#7-cross-city-healthcare-referral-network)
-8. [Ministry Cross-City Project Control](#8-ministry-cross-city-project-control)
-9. [City Stress Index Graph](#9-city-stress-index-graph)
-10. [Public Investment and Property Market Pressure](#10-public-investment-and-property-market-pressure)
+- [ADB\_GroupProject — 10 Neo4j Visual Tasks](#adb_groupproject--10-neo4j-visual-tasks)
+  - [Table of Contents](#table-of-contents)
+  - [1. City as a Central Multi-Sector Hub](#1-city-as-a-central-multi-sector-hub)
+    - [Task Summary](#task-summary)
+    - [Cypher Query](#cypher-query)
+  - [2. Patient and Hospital Movement](#2-patient-and-hospital-movement)
+    - [Task Summary](#task-summary-1)
+    - [Cypher Query](#cypher-query-1)
+  - [3. Government Project Network](#3-government-project-network)
+    - [Task Summary](#task-summary-2)
+    - [Cypher Query](#cypher-query-2)
+  - [4. Cross-City Student Mobility](#4-cross-city-student-mobility)
+    - [Task Summary](#task-summary-3)
+    - [Cypher Query](#cypher-query-3)
+  - [5. Full Academic Path for Students](#5-full-academic-path-for-students)
+    - [Task Summary](#task-summary-4)
+    - [Cypher Query](#cypher-query-4)
+  - [6. Event Registrations and Their Cities](#6-event-registrations-and-their-cities)
+    - [Task Summary](#task-summary-5)
+    - [Cypher Query](#cypher-query-5)
+  - [7. Cross-City Healthcare Referral Network](#7-cross-city-healthcare-referral-network)
+    - [Task Summary](#task-summary-6)
+    - [Cypher Query](#cypher-query-6)
+  - [8. Ministry Cross-City Project Control](#8-ministry-cross-city-project-control)
+    - [Task Summary](#task-summary-7)
+    - [Cypher Query](#cypher-query-7)
+  - [9. City Stress Index Graph](#9-city-stress-index-graph)
+    - [Task Summary](#task-summary-8)
+    - [Cypher Query](#cypher-query-8)
+  - [10. Public Investment and Property Market Pressure](#10-public-investment-and-property-market-pressure)
+    - [Task Summary](#task-summary-9)
+    - [Cypher Query](#cypher-query-9)
+  - [Presentation Order](#presentation-order)
+  - [Notes for Neo4j](#notes-for-neo4j)
+  - [Relationship Reference](#relationship-reference)
 
 ---
 
@@ -315,7 +340,7 @@ LIMIT 50;
 
 ---
 
-## Suggested Presentation Order
+## Presentation Order
 
 Use this order for a clean flow:
 
@@ -335,7 +360,7 @@ This starts broad, then moves through individual domains, then ends with stronge
 
 ---
 
-## Notes for Neo4j Browser
+## Notes for Neo4j
 
 After running each query:
 
