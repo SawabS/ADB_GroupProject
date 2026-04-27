@@ -1,11 +1,11 @@
 # ADB_GroupProject — 10 Neo4j Visual Tasks
 
-This document contains 10 refined Neo4j visual tasks for the Advanced Database Systems group project.  
+This document contains 10 Neo4j visual tasks for the Advanced Database Systems group project.  
 Each task includes a presentation-ready question, graph shape, Cypher query, and visualization idea.
 
 Repository: `ADB_GroupProject`  
 DBMS: Neo4j Graph Database  
-Output type: Visual graph results in Neo4j Browser  
+Output type: Visual graph results in Neo4j
 Recommended result view: `Graph`
 
 ---
@@ -27,23 +27,15 @@ Recommended result view: `Graph`
 
 ## 1. City as a Central Multi-Sector Hub
 
-### Natural Question
+This introductory graph shows `City` as the central integration point across multiple datasets.
 
-Which universities, hospitals, companies, events, and properties are connected to the same city?
+### Task Summary
 
-### Refined Presentation Question
-
-Which city acts as the strongest shared hub across education, healthcare, business, events, and real estate?
-
-### Graph Shape
-
-```text
-University / Hospital / Company / Event / Property ──[:LOCATED_IN]──▶ City
-```
-
-### Why This Task Is Strong
-
-This is a strong introductory graph because it proves that `City` is the central integration point across different datasets.
+| Item | Details |
+|---|---|
+| Presentation question | Which city acts as the strongest shared hub across education, healthcare, business, events, and real estate? |
+| Graph shape | `University / Hospital / Company / Event / Property --[:LOCATED_IN]--> City` |
+| Visualization idea | The city appears at the center of the graph, with different sectors around it such as education, healthcare, business, events, and properties. |
 
 ### Cypher Query
 
@@ -58,32 +50,19 @@ RETURN city, path1, path2, path3, path4, path5
 LIMIT 30;
 ```
 
-### Visualization Idea
-
-The city appears at the center of the graph, with different sectors around it such as education, healthcare, business, events, and properties.
-
 ---
 
 ## 2. Patient and Hospital Movement
 
-### Natural Question
+This graph separates each patient’s home city from the hospital city, allowing local and cross-city treatment patterns to appear clearly.
 
-Where do patients live, and which hospitals are they admitted to?
+### Task Summary
 
-### Refined Presentation Question
-
-How do patients move from their home city to the hospital system, and are they treated locally or outside their city?
-
-### Graph Shape
-
-```text
-Patient ──[:LIVES_IN]──▶ HomeCity
-Patient ──[:ADMITTED_TO]──▶ Hospital ──[:LOCATED_IN]──▶ HospitalCity
-```
-
-### Why This Task Is Strong
-
-This improves the original version by separating the patient’s home city from the hospital city, so both local and cross-city treatment can appear.
+| Item | Details |
+|---|---|
+| Presentation question | How do patients move from their home city to the hospital system, and are they treated locally or outside their city? |
+| Graph shape | `Patient --[:LIVES_IN]--> HomeCity`<br>`Patient --[:ADMITTED_TO]--> Hospital --[:LOCATED_IN]--> HospitalCity` |
+| Visualization idea | Each patient links to a home city and a hospital. The hospital then links to its own city, making healthcare movement visible. |
 
 ### Cypher Query
 
@@ -98,31 +77,19 @@ RETURN path1, path2,
 LIMIT 30;
 ```
 
-### Visualization Idea
-
-Each patient links to a home city and a hospital. The hospital then links to its own city, making healthcare movement visible.
-
 ---
 
 ## 3. Government Project Network
 
-### Natural Question
+This graph shows the public administration structure by connecting ministries, projects, budgets, statuses, and cities.
 
-Which ministries manage government projects, and where are those projects located?
+### Task Summary
 
-### Refined Presentation Question
-
-Which ministries control public projects, and how are those projects distributed across cities?
-
-### Graph Shape
-
-```text
-Ministry ◀──[:MANAGED_BY]── GovernmentProject ──[:LOCATED_IN]──▶ City
-```
-
-### Why This Task Is Strong
-
-This shows public administration structure by connecting ministries, projects, budgets, statuses, and cities.
+| Item | Details |
+|---|---|
+| Presentation question | Which ministries control public projects, and how are those projects distributed across cities? |
+| Graph shape | `Ministry <--[:MANAGED_BY]-- GovernmentProject --[:LOCATED_IN]--> City` |
+| Visualization idea | Government projects appear between ministries and cities, forming a clear public-service network. |
 
 ### Cypher Query
 
@@ -136,32 +103,19 @@ RETURN path1, path2,
 LIMIT 30;
 ```
 
-### Visualization Idea
-
-Government projects appear between ministries and cities, forming a clear public-service network.
-
 ---
 
 ## 4. Cross-City Student Mobility
 
-### Natural Question
+This graph reveals educational migration by showing each student’s home city and university city.
 
-Which students live in one city but study at a university in a different city?
+### Task Summary
 
-### Refined Presentation Question
-
-Which students leave their home city for university, and which cities are sending or receiving students?
-
-### Graph Shape
-
-```text
-Student ──[:LIVES_IN]──▶ HomeCity
-Student ──[:STUDIES_AT]──▶ University ──[:LOCATED_IN]──▶ UniversityCity
-```
-
-### Why This Task Is Strong
-
-This reveals educational migration and shows two city nodes per student: home city and university city.
+| Item | Details |
+|---|---|
+| Presentation question | Which students leave their home city for university, and which cities are sending or receiving students? |
+| Graph shape | `Student --[:LIVES_IN]--> HomeCity`<br>`Student --[:STUDIES_AT]--> University --[:LOCATED_IN]--> UniversityCity` |
+| Visualization idea | Students become bridge nodes between home cities and university cities. |
 
 ### Cypher Query
 
@@ -176,31 +130,19 @@ RETURN path1, path2,
 LIMIT 30;
 ```
 
-### Visualization Idea
-
-Students become bridge nodes between home cities and university cities.
-
 ---
 
 ## 5. Full Academic Path for Students
 
-### Natural Question
+This graph presents the complete education chain from students through courses, departments, universities, and cities.
 
-What is the complete academic path from student to course, department, university, and city?
+### Task Summary
 
-### Refined Presentation Question
-
-How does each student connect into the full academic structure of courses, departments, universities, and locations?
-
-### Graph Shape
-
-```text
-Student ──[:ENROLLED_IN]──▶ Course ──[:BELONGS_TO]──▶ Department ──[:PART_OF]──▶ University ──[:LOCATED_IN]──▶ City
-```
-
-### Why This Task Is Strong
-
-This produces a complete education chain instead of isolated student-course or department-university fragments.
+| Item | Details |
+|---|---|
+| Presentation question | How does each student connect into the full academic structure of courses, departments, universities, and locations? |
+| Graph shape | `Student --[:ENROLLED_IN]--> Course --[:BELONGS_TO]--> Department --[:PART_OF]--> University --[:LOCATED_IN]--> City` |
+| Visualization idea | The graph forms layered academic trees rooted around universities and cities. |
 
 ### Cypher Query
 
@@ -215,31 +157,19 @@ RETURN path,
 LIMIT 50;
 ```
 
-### Visualization Idea
-
-The graph forms layered academic trees rooted around universities and cities.
-
 ---
 
 ## 6. Event Registrations and Their Cities
 
-### Natural Question
+This graph visualizes the event domain end-to-end and shows where registration activity concentrates.
 
-Which events attract the most registrations, and how do those events cluster by city?
+### Task Summary
 
-### Refined Presentation Question
-
-How do registrations connect to events, and how are events distributed across cities?
-
-### Graph Shape
-
-```text
-EventRegistration ──[:REGISTERED_FOR]──▶ Event ──[:LOCATED_IN]──▶ City
-```
-
-### Why This Task Is Strong
-
-This visualizes the event domain end-to-end and shows where registration activity concentrates.
+| Item | Details |
+|---|---|
+| Presentation question | How do registrations connect to events, and how are events distributed across cities? |
+| Graph shape | `EventRegistration --[:REGISTERED_FOR]--> Event --[:LOCATED_IN]--> City` |
+| Visualization idea | Popular events become dense clusters of registration nodes, while city nodes show geographic grouping. |
 
 ### Cypher Query
 
@@ -254,32 +184,19 @@ RETURN path,
 LIMIT 50;
 ```
 
-### Visualization Idea
-
-Popular events become dense clusters of registration nodes, while city nodes show geographic grouping.
-
 ---
 
 ## 7. Cross-City Healthcare Referral Network
 
-### Natural Question
+This graph focuses on cross-city healthcare movement by returning only patients treated outside their home city.
 
-Which patients are treated outside their home city?
+### Task Summary
 
-### Refined Presentation Question
-
-Which cities depend on hospitals in other cities, and where is cross-city healthcare movement strongest?
-
-### Graph Shape
-
-```text
-Patient ──[:LIVES_IN]──▶ HomeCity
-Patient ──[:ADMITTED_TO]──▶ Hospital ──[:LOCATED_IN]──▶ HospitalCity
-```
-
-### Why This Task Is Strong
-
-This is a harder version of patient movement because it filters only cross-city treatment cases.
+| Item | Details |
+|---|---|
+| Presentation question | Which cities depend on hospitals in other cities, and where is cross-city healthcare movement strongest? |
+| Graph shape | `Patient --[:LIVES_IN]--> HomeCity`<br>`Patient --[:ADMITTED_TO]--> Hospital --[:LOCATED_IN]--> HospitalCity` |
+| Visualization idea | Patient nodes bridge two different city nodes, revealing referral-like movement between cities. |
 
 ### Cypher Query
 
@@ -295,33 +212,19 @@ RETURN path1, path2,
 LIMIT 40;
 ```
 
-### Visualization Idea
-
-Patient nodes bridge two different city nodes, revealing referral-like movement between cities.
-
 ---
 
 ## 8. Ministry Cross-City Project Control
 
-### Natural Question
+This graph reveals administrative centralization and cross-city government control.
 
-Which ministries are located in one city but manage projects in another city?
+### Task Summary
 
-### Refined Presentation Question
-
-Is public project management local, or are some cities controlled administratively from other cities?
-
-### Graph Shape
-
-```text
-Ministry ──[:LOCATED_IN]──▶ MinistryCity
-GovernmentProject ──[:MANAGED_BY]──▶ Ministry
-GovernmentProject ──[:LOCATED_IN]──▶ ProjectCity
-```
-
-### Why This Task Is Strong
-
-This reveals administrative centralization and cross-city government control.
+| Item | Details |
+|---|---|
+| Presentation question | Is public project management local, or are some cities controlled administratively from other cities? |
+| Graph shape | `Ministry --[:LOCATED_IN]--> MinistryCity`<br>`GovernmentProject --[:MANAGED_BY]--> Ministry`<br>`GovernmentProject --[:LOCATED_IN]--> ProjectCity` |
+| Visualization idea | Ministries appear as control hubs connected to projects outside their own city. |
 
 ### Cypher Query
 
@@ -338,32 +241,19 @@ RETURN path1, path2, path3,
 LIMIT 40;
 ```
 
-### Visualization Idea
-
-Ministries appear as control hubs connected to projects outside their own city.
-
 ---
 
 ## 9. City Stress Index Graph
 
-### Natural Question
+This analytical graph computes a city-level stress score before returning the related graph paths.
 
-Which cities are the busiest when combining patients, events, government projects, and properties?
+### Task Summary
 
-### Refined Presentation Question
-
-Which cities carry the highest multi-sector load across healthcare, events, government projects, and real estate?
-
-### Graph Shape
-
-```text
-Patient / Event / GovernmentProject / Property ──▶ City
-City is ranked by combined StressScore
-```
-
-### Why This Task Is Strong
-
-This is an analytical task because it computes a city-level score before returning graph paths.
+| Item | Details |
+|---|---|
+| Presentation question | Which cities carry the highest multi-sector load across healthcare, events, government projects, and real estate? |
+| Graph shape | `Patient / Event / GovernmentProject / Property --> City`<br>`City is ranked by combined StressScore` |
+| Visualization idea | The highest-stress cities appear as dense hubs surrounded by multiple sectors. |
 
 ### Cypher Query
 
@@ -391,31 +281,19 @@ RETURN city, path1, path2, path3, path4,
 LIMIT 80;
 ```
 
-### Visualization Idea
-
-The highest-stress cities appear as dense hubs surrounded by multiple sectors.
-
 ---
 
 ## 10. Public Investment and Property Market Pressure
 
-### Natural Question
+This graph connects government spending with real estate values to support a planning and economics analysis.
 
-Are high-budget government projects located in cities that also contain expensive properties?
+### Task Summary
 
-### Refined Presentation Question
-
-Which cities show both large public investment and high property prices, suggesting economic pressure or development concentration?
-
-### Graph Shape
-
-```text
-Ministry ── GovernmentProject ── City ── Property
-```
-
-### Why This Task Is Strong
-
-This connects government spending with real estate values and turns the graph into a planning/economics question.
+| Item | Details |
+|---|---|
+| Presentation question | Which cities show both large public investment and high property prices, suggesting economic pressure or development concentration? |
+| Graph shape | `Ministry -- GovernmentProject -- City -- Property` |
+| Visualization idea | City nodes become bridges between high-budget projects and expensive properties. |
 
 ### Cypher Query
 
@@ -434,10 +312,6 @@ RETURN path1, path2, path3,
 ORDER BY ProjectBudget DESC, PropertyPrice DESC
 LIMIT 50;
 ```
-
-### Visualization Idea
-
-City nodes become bridges between high-budget projects and expensive properties.
 
 ---
 
