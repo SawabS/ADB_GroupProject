@@ -12,16 +12,16 @@ Recommended result view: `Graph`
 
 ## Table of Contents
 
-1. [Task 1](#1-city-as-a-central-multi-sector-hub)
-2. [Task 2](#2-patient-and-hospital-movement)
-3. [Task 3](#3-government-project-network)
-4. [Task 4](#4-cross-city-student-mobility)
-5. [Task 5](#5-full-academic-path-for-students)
-6. [Task 6](#6-event-registrations-and-their-cities)
-7. [Task 7](#7-cross-city-healthcare-referral-network)
-8. [Task 8](#8-ministry-cross-city-project-control)
-9. [Task 9](#9-city-stress-index-graph)
-10. [Task 10](#10-public-investment-and-property-market-pressure)
+1. [City as a Central Multi-Sector Hub](#1-city-as-a-central-multi-sector-hub)
+2. [Patient and Hospital Movement](#2-patient-and-hospital-movement)
+3. [Government Project Network](#3-government-project-network)
+4. [Cross-City Student Mobility](#4-cross-city-student-mobility)
+5. [Full Academic Path for Students](#5-full-academic-path-for-students)
+6. [Event Registrations and Their Cities](#6-event-registrations-and-their-cities)
+7. [Cross-City Healthcare Referral Network](#7-cross-city-healthcare-referral-network)
+8. [Ministry Cross-City Project Control](#8-ministry-cross-city-project-control)
+9. [City Stress Index Graph](#9-city-stress-index-graph)
+10. [Public Investment and Property Market Pressure](#10-public-investment-and-property-market-pressure)
 
 ---
 
