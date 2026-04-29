@@ -295,20 +295,27 @@ WITH city, Patients, Events, Projects, Properties,
      Patients + Events + Projects + Properties AS StressScore
 ORDER BY StressScore DESC
 LIMIT 3
-WITH collect({city: city, Patients: Patients, Events: Events,
-              Projects: Projects, Properties: Properties,
-              StressScore: StressScore}) AS topCities
-UNWIND topCities AS row
-WITH row.city AS city, row.Patients AS Patients, row.Events AS Events,
-     row.Projects AS Projects, row.Properties AS Properties,
-     row.StressScore AS StressScore
-OPTIONAL MATCH path1 = (p:Patient)-[:LIVES_IN]->(city)
-OPTIONAL MATCH path2 = (e:Event)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH path3 = (gp:GovernmentProject)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH path4 = (pr:Property)-[:LOCATED_IN]->(city)
-RETURN city, path1, path2, path3, path4,
+
+OPTIONAL MATCH p1 = (:Patient)-[:LIVES_IN]->(city)
+WITH city, Patients, Events, Projects, Properties, StressScore,
+     collect(DISTINCT p1)[..10] AS patientPaths
+
+OPTIONAL MATCH p2 = (:Event)-[:LOCATED_IN]->(city)
+WITH city, Patients, Events, Projects, Properties, StressScore, patientPaths,
+     collect(DISTINCT p2)[..10] AS eventPaths
+
+OPTIONAL MATCH p3 = (:GovernmentProject)-[:LOCATED_IN]->(city)
+WITH city, Patients, Events, Projects, Properties, StressScore, patientPaths, eventPaths,
+     collect(DISTINCT p3)[..10] AS projectPaths
+
+OPTIONAL MATCH p4 = (:Property)-[:LOCATED_IN]->(city)
+RETURN city,
+       patientPaths,
+       eventPaths,
+       projectPaths,
+       collect(DISTINCT p4)[..10] AS propertyPaths,
        Patients, Events, Projects, Properties, StressScore
-LIMIT 30;
+ORDER BY StressScore DESC;
 ```
 
 ---
