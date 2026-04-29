@@ -318,7 +318,7 @@ ORDER BY StressScore DESC;
 ```
 
 Full result:
-```
+```cypher
 MATCH (city:City)
 WITH city,
      COUNT { (p:Patient)-[:LIVES_IN]->(city) } AS Patients,
