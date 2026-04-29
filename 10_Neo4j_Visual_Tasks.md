@@ -11,7 +11,6 @@ Recommended result view: `Graph`
 ---
 
 ## Table of Contents
-
 - [ADB\_GroupProject — 10 Neo4j Visual Tasks](#adb_groupproject--10-neo4j-visual-tasks)
   - [Table of Contents](#table-of-contents)
   - [1. City as a Central Multi-Sector Hub](#1-city-as-a-central-multi-sector-hub)
@@ -287,26 +286,29 @@ This analytical graph computes a city-level stress score before returning the re
 
 ```cypher
 MATCH (city:City)
-OPTIONAL MATCH (patient:Patient)-[:LIVES_IN]->(city)
-OPTIONAL MATCH (event:Event)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH (project:GovernmentProject)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH (property:Property)-[:LOCATED_IN]->(city)
 WITH city,
-     count(DISTINCT patient) AS Patients,
-     count(DISTINCT event) AS Events,
-     count(DISTINCT project) AS Projects,
-     count(DISTINCT property) AS Properties
+     COUNT { (p:Patient)-[:LIVES_IN]->(city) } AS Patients,
+     COUNT { (e:Event)-[:LOCATED_IN]->(city) } AS Events,
+     COUNT { (gp:GovernmentProject)-[:LOCATED_IN]->(city) } AS Projects,
+     COUNT { (pr:Property)-[:LOCATED_IN]->(city) } AS Properties
 WITH city, Patients, Events, Projects, Properties,
      Patients + Events + Projects + Properties AS StressScore
 ORDER BY StressScore DESC
 LIMIT 3
-OPTIONAL MATCH path1 = (patient:Patient)-[:LIVES_IN]->(city)
-OPTIONAL MATCH path2 = (event:Event)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH path3 = (project:GovernmentProject)-[:LOCATED_IN]->(city)
-OPTIONAL MATCH path4 = (property:Property)-[:LOCATED_IN]->(city)
+WITH collect({city: city, Patients: Patients, Events: Events,
+              Projects: Projects, Properties: Properties,
+              StressScore: StressScore}) AS topCities
+UNWIND topCities AS row
+WITH row.city AS city, row.Patients AS Patients, row.Events AS Events,
+     row.Projects AS Projects, row.Properties AS Properties,
+     row.StressScore AS StressScore
+OPTIONAL MATCH path1 = (p:Patient)-[:LIVES_IN]->(city)
+OPTIONAL MATCH path2 = (e:Event)-[:LOCATED_IN]->(city)
+OPTIONAL MATCH path3 = (gp:GovernmentProject)-[:LOCATED_IN]->(city)
+OPTIONAL MATCH path4 = (pr:Property)-[:LOCATED_IN]->(city)
 RETURN city, path1, path2, path3, path4,
        Patients, Events, Projects, Properties, StressScore
-LIMIT 80;
+LIMIT 30;
 ```
 
 ---
