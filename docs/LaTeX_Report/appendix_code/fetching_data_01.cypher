@@ -1,0 +1,14 @@
+﻿CREATE INDEX company_id IF NOT EXISTS FOR (n:Company) ON (n.company_id);
+CREATE INDEX student_id IF NOT EXISTS FOR (n:Student) ON (n.student_id);
+CREATE INDEX university_id IF NOT EXISTS FOR (n:University) ON (n.university_id);
+CREATE INDEX course_id IF NOT EXISTS FOR (n:Course) ON (n.course_id);
+CREATE INDEX hospital_id IF NOT EXISTS FOR (n:Hospital) ON (n.hospital_id);
+CREATE INDEX patient_id IF NOT EXISTS FOR (n:Patient) ON (n.patient_id);
+CREATE INDEX dept_id IF NOT EXISTS FOR (n:Department) ON (n.dept_id);
+CREATE INDEX event_id IF NOT EXISTS FOR (n:Event) ON (n.event_id);
+CREATE INDEX project_id IF NOT EXISTS FOR (n:GovernmentProject) ON (n.project_id);
+CREATE INDEX ministry_id IF NOT EXISTS FOR (n:Ministry) ON (n.ministry_id);
+CREATE INDEX property_id IF NOT EXISTS FOR (n:Property) ON (n.property_id);
+CREATE INDEX enroll_id IF NOT EXISTS FOR (n:Enrollment) ON (n.enroll_id);
+CREATE INDEX reg_id IF NOT EXISTS FOR (n:EventRegistration) ON (n.registration_id);
+CREATE INDEX city_name IF NOT EXISTS FOR (n:City) ON (n.name);
