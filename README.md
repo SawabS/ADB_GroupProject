@@ -25,6 +25,8 @@ and final report/presentation deliverables.
 - Neo4j `LOAD CSV` scripts for creating indexes, nodes, and relationships.
 - A city-centered graph model connecting education, healthcare, government,
   business, property, and events.
+- A dedicated Neo4j CRUD operation workflow for the intermediate project
+  requirement.
 - Ten visual Cypher analysis tasks with exported Neo4j graph screenshots.
 - A polished LaTeX report and PowerPoint presentation.
 - A submission-ready folder containing the final presentation PDF and PPTX.
@@ -50,6 +52,12 @@ ADB_GroupProject/
 |   |-- properties.csv
 |   |-- students.csv
 |   `-- universities.csv
+|-- CRUD_Operations/
+|   |-- README.md
+|   |-- 01_create.cypher
+|   |-- 02_read.cypher
+|   |-- 03_update.cypher
+|   `-- 04_delete.cypher
 |-- docs/
 |   |-- Neo4j_KRG_Graph_Database_Presentation.pptx
 |   `-- LaTeX_Report/
@@ -131,10 +139,19 @@ The complete loading script is documented in [`fetching_data.md`](fetching_data.
 4. Run Step 2 to load all node labels.
 5. Run Step 3 to create relationships.
 6. Run Step 4 to verify the graph.
-7. Explore the analysis queries in [`10_Neo4j_Visual_Tasks.md`](10_Neo4j_Visual_Tasks.md).
+7. Run the CRUD examples in [`CRUD_Operations/`](CRUD_Operations/) to satisfy
+   the intermediate CRUD requirement.
+8. Explore the analysis queries in [`10_Neo4j_Visual_Tasks.md`](10_Neo4j_Visual_Tasks.md).
 
 Because the Cypher scripts use `file:///...` paths, the CSV files must be placed
 inside Neo4j's configured import directory before running the queries.
+
+## CRUD Operations
+
+The missing CRUD requirement is now documented in
+[`CRUD_Operations/`](CRUD_Operations/). These Cypher scripts create, read,
+update, and delete a safe demo education subgraph using IDs prefixed with
+`CRUD_DEMO_`, so the cleanup query does not affect the main CSV dataset.
 
 ## Visual Analysis Tasks
 
@@ -181,9 +198,10 @@ Exported screenshots and the city stress CSV are stored in [`query_results/`](qu
 
 1. [`summary.md`](summary.md) - dataset inventory and field-level overview.
 2. [`fetching_data.md`](fetching_data.md) - Neo4j import and relationship workflow.
-3. [`10_Neo4j_Visual_Tasks.md`](10_Neo4j_Visual_Tasks.md) - visual analysis queries.
-4. [`docs/LaTeX_Report/report.pdf`](docs/LaTeX_Report/report.pdf) - final written report.
-5. [`ADB_GroupProject_Submission/`](ADB_GroupProject_Submission/) - presentation-ready files.
+3. [`CRUD_Operations/`](CRUD_Operations/) - create, read, update, and delete queries.
+4. [`10_Neo4j_Visual_Tasks.md`](10_Neo4j_Visual_Tasks.md) - visual analysis queries.
+5. [`docs/LaTeX_Report/report.pdf`](docs/LaTeX_Report/report.pdf) - final written report.
+6. [`ADB_GroupProject_Submission/`](ADB_GroupProject_Submission/) - presentation-ready files.
 
 ## Academic Context
 
